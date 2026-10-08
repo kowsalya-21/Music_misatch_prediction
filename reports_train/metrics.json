@@ -1,0 +1,160 @@
+{
+  "git_commit": "1f196f4e094547bbcd54739ba2ecff87c675b8e4",
+  "config": {
+    "seeds": [
+      42,
+      1337,
+      2026
+    ],
+    "architecture": "MelSpectrogramCNN (5 blocks, 512-dim embedding)",
+    "precision": "bfloat16",
+    "augmentations": [
+      "SpecAugment",
+      "random_gain",
+      "random_roll"
+    ],
+    "batch_size": 64,
+    "temperature": 1.3452023267745972
+  },
+  "audio_models": {
+    "selected_model": "MelSpectrogramCNN",
+    "baseline_lightgbm": {
+      "valence": {
+        "r2": 0.5416385801980539,
+        "rmse": 0.12781646926999862,
+        "ccc": 0.7061910065494327
+      },
+      "arousal": {
+        "r2": 0.4373006760380308,
+        "rmse": 0.13637588699222938,
+        "ccc": 0.6204713531698028
+      },
+      "quadrant": {
+        "accuracy": 0.6130434782608696,
+        "macro_f1": 0.44065203210527804
+      }
+    },
+    "baseline_svm": {
+      "valence": {
+        "r2": 0.5101818597987758,
+        "rmse": 0.13212963070567627,
+        "ccc": 0.6720847586670446
+      },
+      "arousal": {
+        "r2": 0.42136448601463916,
+        "rmse": 0.13829355287133907,
+        "ccc": 0.6180140126590397
+      },
+      "quadrant": {
+        "accuracy": 0.6130434782608696,
+        "macro_f1": 0.4355905205905206
+      }
+    },
+    "mel_cnn_seeds": [
+      {
+        "seed": 42,
+        "stage1_tags": {
+          "pr_auc_macro": 0.08822178335967941,
+          "roc_auc_macro": 0.5550205493847592
+        },
+        "valence": {
+          "r2": 0.5814177819811865,
+          "rmse": 0.12214429189690296,
+          "ccc": 0.7387606433605047
+        },
+        "arousal": {
+          "r2": 0.510504527096262,
+          "rmse": 0.12719608122462703,
+          "ccc": 0.7063733322405943
+        },
+        "quadrant": {
+          "accuracy": 0.717391304347826,
+          "macro_f1": 0.415358024691358,
+          "roc_auc_ovr": 0.7992413578069684,
+          "ece": 0.06403365938559824
+        }
+      },
+      {
+        "seed": 1337,
+        "stage1_tags": {
+          "pr_auc_macro": 0.09894548232171349,
+          "roc_auc_macro": 0.6489174717700519
+        },
+        "valence": {
+          "r2": 0.5773563323890799,
+          "rmse": 0.12273543660980434,
+          "ccc": 0.738850578347361
+        },
+        "arousal": {
+          "r2": 0.531053326920524,
+          "rmse": 0.12449764062883084,
+          "ccc": 0.7139272181175506
+        },
+        "quadrant": {
+          "accuracy": 0.6956521739130435,
+          "macro_f1": 0.40345555118282395,
+          "roc_auc_ovr": 0.7975244487930726,
+          "ece": 0.03136048200337785
+        }
+      },
+      {
+        "seed": 2026,
+        "stage1_tags": {
+          "pr_auc_macro": 0.10074788917676751,
+          "roc_auc_macro": 0.6482840266495183
+        },
+        "valence": {
+          "r2": 0.5516557057584153,
+          "rmse": 0.12641209016806365,
+          "ccc": 0.7159209841703617
+        },
+        "arousal": {
+          "r2": 0.513988801642562,
+          "rmse": 0.12674257596035743,
+          "ccc": 0.7059849578293746
+        },
+        "quadrant": {
+          "accuracy": 0.7043478260869566,
+          "macro_f1": 0.4078165724120974,
+          "roc_auc_ovr": 0.7908581690937909,
+          "ece": 0.08749654850234151
+        }
+      }
+    ],
+    "mel_cnn_average": {
+      "valence": {
+        "r2": 0.5701432733762272,
+        "rmse": 0.12376393955825699,
+        "ccc": 0.7311774019594092
+      },
+      "arousal": {
+        "r2": 0.5185155518864494,
+        "rmse": 0.1261454326046051,
+        "ccc": 0.7087618360625066
+      },
+      "quadrant": {
+        "accuracy": 0.7057971014492753,
+        "macro_f1": 0.4088767160954265,
+        "ece_uncalibrated": 0.060963563297105866,
+        "ece_calibrated": 0.07735170245680036
+      },
+      "stage1_tags": {
+        "pr_auc_macro": 0.09597171828605348,
+        "roc_auc_macro": 0.6174073492681099
+      }
+    }
+  },
+  "lyrics_model": {
+    "model_name": "xlm-roberta-base",
+    "type": "Multilingual Text Encoder (XLM-RoBERTa-base)",
+    "license": "MIT",
+    "parameters": 278046724,
+    "epochs": 3,
+    "batch_size": 64,
+    "learning_rate": 2e-05,
+    "test_metrics": {
+      "accuracy": 0.8842553191489362,
+      "macro_f1": 0.8617833459264524
+    }
+  }
+}

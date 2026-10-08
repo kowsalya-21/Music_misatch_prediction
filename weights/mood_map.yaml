@@ -1,0 +1,142 @@
+# Canonical Mood and Valence-Arousal Quadrant Mapping
+# Russel's Circumplex Model of Affect:
+# Quadrant 1 (Q1) - Happy:   High Valence (V >= 0.5), High Arousal (A >= 0.5)
+# Quadrant 2 (Q2) - Angry:   Low Valence (V < 0.5),  High Arousal (A >= 0.5)
+# Quadrant 3 (Q3) - Sad:     Low Valence (V < 0.5),  Low Arousal (A < 0.5)
+# Quadrant 4 (Q4) - Calm:    High Valence (V >= 0.5), Low Arousal (A < 0.5)
+
+quadrants:
+  happy:
+    id: 0
+    name: "happy"
+    valence_range: [0.5, 1.0]
+    arousal_range: [0.5, 1.0]
+    description: "High valence, high arousal: joyful, energetic, party, celebratory"
+  angry:
+    id: 1
+    name: "angry"
+    valence_range: [0.0, 0.5]
+    arousal_range: [0.5, 1.0]
+    description: "Low valence, high arousal: aggressive, intense, tension, dark, rage"
+  sad:
+    id: 2
+    name: "sad"
+    valence_range: [0.0, 0.5]
+    arousal_range: [0.0, 0.5]
+    description: "Low valence, low arousal: melancholic, grieving, sorrow, depressed"
+  calm:
+    id: 3
+    name: "calm"
+    valence_range: [0.5, 1.0]
+    arousal_range: [0.0, 0.5]
+    description: "High valence, low arousal: relaxing, peaceful, serene, tranquil, gentle"
+
+# Mapping from MTG-Jamendo mood/theme tags to quadrants
+jamendo_tag_map:
+  # Q1: Happy
+  "mood/theme---happy": "happy"
+  "mood/theme---party": "happy"
+  "mood/theme---fun": "happy"
+  "mood/theme---positive": "happy"
+  "mood/theme---upbeat": "happy"
+  "mood/theme---celebration": "happy"
+  "mood/theme---optimistic": "happy"
+  "mood/theme---summer": "happy"
+  "mood/theme---energetic": "happy"
+  "mood/theme---uplifting": "happy"
+  "mood/theme---action": "happy"
+
+  # Q2: Angry / Tense / Dark
+  "mood/theme---angry": "angry"
+  "mood/theme---dark": "angry"
+  "mood/theme---heavy": "angry"
+  "mood/theme---aggressive": "angry"
+  "mood/theme---drama": "angry"
+  "mood/theme---action/drama": "angry"
+  "mood/theme---scary": "angry"
+  "mood/theme---horror": "angry"
+  "mood/theme---war": "angry"
+
+  # Q3: Sad / Melancholic
+  "mood/theme---sad": "sad"
+  "mood/theme---melancholic": "sad"
+  "mood/theme---sorrow": "sad"
+  "mood/theme---lonely": "sad"
+  "mood/theme---depressing": "sad"
+  "mood/theme---ballad": "sad"
+
+  # Q4: Calm / Relaxing
+  "mood/theme---relaxing": "calm"
+  "mood/theme---calm": "calm"
+  "mood/theme---peaceful": "calm"
+  "mood/theme---chill": "calm"
+  "mood/theme---gentle": "calm"
+  "mood/theme---soft": "calm"
+  "mood/theme---sleep": "calm"
+  "mood/theme---meditative": "calm"
+  "mood/theme---ambient": "calm"
+  "mood/theme---nature": "calm"
+  "mood/theme---dream": "calm"
+
+# Ambiguous Jamendo tags explicitly excluded from mood classification
+excluded_ambiguous_tags:
+  - "mood/theme---film"            # Contextual usage, not an intrinsic emotion
+  - "mood/theme---documentary"     # Media format
+  - "mood/theme---background"      # Functional category
+  - "mood/theme---soundtrack"      # Media format
+  - "mood/theme---space"           # Thematic setting, indeterminate emotional valence
+  - "mood/theme---advertising"     # Functional purpose
+  - "mood/theme---commercial"      # Functional purpose
+  - "mood/theme---corporate"       # Setting
+  - "mood/theme---game"            # Contextual
+  - "mood/theme---trailer"         # Format
+  - "mood/theme---sport"           # Activity
+  - "mood/theme---travel"          # Activity
+  - "mood/theme---children"        # Demographic target, not a clear VA quadrant
+  - "mood/theme---retro"           # Temporal style
+  - "mood/theme---holiday"         # Contextual
+  - "mood/theme---christmas"       # Contextual
+
+# Mapping from MoodyLyrics categories to quadrants
+moodylyrics_map:
+  "happy": "happy"
+  "angry": "angry"
+  "sad": "sad"
+  "relaxed": "calm"
+
+# Mapping from GoEmotions categories to quadrants (neutral is excluded)
+goemotions_map:
+  # Happy (Q1)
+  "admiration": "happy"
+  "amusement": "happy"
+  "approval": "happy"
+  "caring": "happy"
+  "excitement": "happy"
+  "gratitude": "happy"
+  "joy": "happy"
+  "love": "happy"
+  "optimism": "happy"
+  "pride": "happy"
+  "relief": "calm"
+
+  # Angry (Q2)
+  "anger": "angry"
+  "annoyance": "angry"
+  "disapproval": "angry"
+  "disgust": "angry"
+  "fear": "angry"
+  "nervousness": "angry"
+
+  # Sad (Q3)
+  "disappointment": "sad"
+  "embarrassment": "sad"
+  "grief": "sad"
+  "remorse": "sad"
+  "sadness": "sad"
+
+  # Ambiguous / Excluded GoEmotions labels
+  "confusion": null
+  "curiosity": null
+  "realization": null
+  "surprise": null
+  "neutral": null

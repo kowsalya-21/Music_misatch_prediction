@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy: Label Audit</title>
+  <meta name="description" content="Privacy policy detailing audio file handling, data processing, and logging practices.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav-wrapper">
+      <a href="/" class="brand">
+        <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="3" y1="16" x2="29" y2="16" stroke="#171717" stroke-width="1.5" stroke-linecap="square"/>
+          <line x1="16" y1="3" x2="16" y2="29" stroke="#171717" stroke-width="1.5" stroke-linecap="square"/>
+          <line x1="16" y1="9.5" x2="19" y2="9.5" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="16" y1="22.5" x2="19" y2="22.5" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="9.5" y1="16" x2="9.5" y2="19" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="22.5" y1="16" x2="22.5" y2="19" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <circle cx="22.5" cy="9.5" r="3.25" fill="#D94820"/>
+        </svg>
+        <span>Label Audit</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="/">Analyze</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/privacy.html" class="active">Privacy</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/credits.html">Credits</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="max-width: 800px;">
+      <h1>Privacy Policy</h1>
+      <p class="label-hint" style="margin-bottom: 28px;">Effective Date: [EFFECTIVE DATE]</p>
+
+      <section style="margin-bottom: 28px;">
+        <h2>1. Overview and Commitment</h2>
+        <p>
+          This Privacy Policy describes how [ENTITY NAME] ("we", "us", or "our") processes information
+          when you interact with the Label Audit web application and API. We prioritize user privacy and
+          operate with a minimal data footprint.
+        </p>
+      </section>
+
+      <section style="margin-bottom: 28px;">
+        <h2>2. Audio and File Processing</h2>
+        <p>
+          When you upload an audio file for analysis:
+        </p>
+        <ul style="margin-left: 20px; margin-bottom: 16px;">
+          <li style="margin-bottom: 8px;">The file is temporarily stored in a local directory solely to allow feature extraction and model inference.</li>
+          <li style="margin-bottom: 8px;">The temporary file is deleted in a protected code block immediately after inference finishes, even if processing fails.</li>
+          <li style="margin-bottom: 8px;">We do not retain permanent copies of your audio files, nor do we use uploaded audio to train future models.</li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 28px;">
+        <h2>3. Server Logging Practices</h2>
+        <p>
+          To maintain system stability and enforce rate limiting, our servers log:
+        </p>
+        <ul style="margin-left: 20px; margin-bottom: 16px;">
+          <li style="margin-bottom: 8px;">A unique pseudorandom Request ID</li>
+          <li style="margin-bottom: 8px;">Processing duration in milliseconds</li>
+          <li style="margin-bottom: 8px;">HTTP response status codes</li>
+          <li style="margin-bottom: 8px;">Client IP address (used solely in-memory to prevent denial of service and enforce rate limits)</li>
+        </ul>
+        <p>
+          <strong>We never log:</strong> Audio content, song titles, artist names, or lyrics text in server logs.
+        </p>
+      </section>
+
+      <section style="margin-bottom: 28px;">
+        <h2>4. External Services and Third Parties</h2>
+        <p>
+          If you specify a song title and artist for automatic lyrics retrieval, the system queries public databases
+          (specifically LRCLIB or Genius API if configured). Only the title and artist strings are transmitted;
+          <strong>audio files are never sent to third-party endpoints</strong>.
+        </p>
+        <p>
+          If a hosted Large Language Model provider is configured by the server administrator, structured summary
+          numbers (such as valence and arousal values) may be processed to generate explanatory notes.
+        </p>
+      </section>
+
+      <section style="margin-bottom: 28px;">
+        <h2>5. No Accounts, Cookies, or Trackers</h2>
+        <p>
+          Label Audit does not require user accounts. We do not use advertising trackers, profiling cookies,
+          or commercial analytics scripts.
+        </p>
+      </section>
+
+      <section style="margin-bottom: 28px;">
+        <h2>6. Contact and Jurisdiction</h2>
+        <p>
+          If you have questions regarding this policy, contact [CONTACT EMAIL].
+          This agreement is governed by the laws of [GOVERNING LAW].
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-wrapper">
+      <div>
+        <span>Label Audit System. Built for academic music information retrieval and editorial verification.</span>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/credits.html">Credits and Licenses</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

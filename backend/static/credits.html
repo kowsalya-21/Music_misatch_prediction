@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credits and Licenses: Label Audit</title>
+  <meta name="description" content="Attribution, academic citations, and licenses for datasets, models, and font assets.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav-wrapper">
+      <a href="/" class="brand">
+        <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="3" y1="16" x2="29" y2="16" stroke="#171717" stroke-width="1.5" stroke-linecap="square"/>
+          <line x1="16" y1="3" x2="16" y2="29" stroke="#171717" stroke-width="1.5" stroke-linecap="square"/>
+          <line x1="16" y1="9.5" x2="19" y2="9.5" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="16" y1="22.5" x2="19" y2="22.5" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="9.5" y1="16" x2="9.5" y2="19" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="22.5" y1="16" x2="22.5" y2="19" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <circle cx="22.5" cy="9.5" r="3.25" fill="#D94820"/>
+        </svg>
+        <span>Label Audit</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="/">Analyze</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/credits.html" class="active">Credits</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="max-width: 880px;">
+      <h1>Credits and Licenses</h1>
+      <p class="label-hint" style="margin-bottom: 28px;">
+        We acknowledge and credit the researchers, open source contributors, and dataset curators whose work makes this project possible.
+      </p>
+
+      <h2>1. Research Datasets</h2>
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th>Dataset / Source</th>
+            <th>Institution / Authors</th>
+            <th>License Status</th>
+            <th>Application</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>MTG-Jamendo</strong></td>
+            <td>Music Technology Group, Universitat Pompeu Fabra</td>
+            <td>CC BY-NC-SA 4.0 / CC0</td>
+            <td>Stage 1 acoustic representation pretraining</td>
+          </tr>
+          <tr>
+            <td><strong>DEAM</strong></td>
+            <td>University of Geneva (CVML Lab)</td>
+            <td>CC BY-NC-ND 4.0</td>
+            <td>Continuous valence/arousal regression annotations</td>
+          </tr>
+          <tr>
+            <td><strong>PMEmo</strong></td>
+            <td>Shenzhen University</td>
+            <td>Academic Research Use</td>
+            <td>Chorus audio, lyrics, and emotion annotations</td>
+          </tr>
+          <tr>
+            <td><strong>GoEmotions</strong></td>
+            <td>Google Research</td>
+            <td>Apache License 2.0</td>
+            <td>Fine-tuning text emotion classifications</td>
+          </tr>
+          <tr>
+            <td><strong>MoodyLyrics</strong></td>
+            <td>MoodyLyrics Project</td>
+            <td>Academic Research Use</td>
+            <td>Song title and artist sentiment benchmarks</td>
+          </tr>
+          <tr>
+            <td><strong>LRCLIB</strong></td>
+            <td>LRCLIB Community</td>
+            <td><em>License to be verified before launch</em></td>
+            <td>Synchronized and plain lyrics retrieval API</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 style="margin-top: 36px;">2. Typography and Software Assets</h2>
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>Creator / Maintainer</th>
+            <th>License</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>IBM Plex Font Family</strong></td>
+            <td>IBM Corp.</td>
+            <td>SIL Open Font License 1.1</td>
+            <td>Self-hosted webfonts (Plex Serif, Plex Sans, Plex Mono)</td>
+          </tr>
+          <tr>
+            <td><strong>Librosa</strong></td>
+            <td>Brian McFee et al.</td>
+            <td>ISC License</td>
+            <td>Acoustic signal processing and STFT extraction</td>
+          </tr>
+          <tr>
+            <td><strong>ONNX Runtime</strong></td>
+            <td>Microsoft / Linux Foundation</td>
+            <td>MIT License</td>
+            <td>Hardware-optimized inference engine on CPU</td>
+          </tr>
+          <tr>
+            <td><strong>Transformers</strong></td>
+            <td>Hugging Face</td>
+            <td>Apache License 2.0</td>
+            <td>Subword tokenization and language modeling</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-wrapper">
+      <div>
+        <span>Label Audit System. Built for academic music information retrieval and editorial verification.</span>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/credits.html">Credits and Licenses</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

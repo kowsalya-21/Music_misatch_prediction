@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluation Metrics: Label Audit</title>
+  <meta name="description" content="Empirical performance metrics and validation results for audio and lyrics mood models.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav-wrapper">
+      <a href="/" class="brand">
+        <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="3" y1="16" x2="29" y2="16" stroke="#171717" stroke-width="1.5" stroke-linecap="square"/>
+          <line x1="16" y1="3" x2="16" y2="29" stroke="#171717" stroke-width="1.5" stroke-linecap="square"/>
+          <line x1="16" y1="9.5" x2="19" y2="9.5" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="16" y1="22.5" x2="19" y2="22.5" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="9.5" y1="16" x2="9.5" y2="19" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <line x1="22.5" y1="16" x2="22.5" y2="19" stroke="#171717" stroke-width="1.2" stroke-linecap="square"/>
+          <circle cx="22.5" cy="9.5" r="3.25" fill="#D94820"/>
+        </svg>
+        <span>Label Audit</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="/">Analyze</a></li>
+          <li><a href="/results.html" class="active">Results</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/credits.html">Credits</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <h1>Empirical Evaluation Metrics</h1>
+        <p>
+          Verified benchmark results measured strictly on held-out test splits.
+          All models were evaluated from scratch without data leakage.
+        </p>
+      </section>
+
+      <div id="metricsContainer">
+        <div class="card" style="margin-bottom: 24px;">
+          <p id="loadingText">Fetching evaluation metrics from server...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-wrapper">
+      <div>
+        <span>Label Audit System. Built for academic music information retrieval and editorial verification.</span>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/credits.html">Credits and Licenses</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/results.js"></script>
+</body>
+</html>

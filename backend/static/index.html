@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Label Audit: Music Mood and Editorial Mismatch Engine</title>
+  <meta name="description" content="Audit musical audio and lyrics to verify editorial mood labels against empirical machine learning predictions.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav-wrapper">
+      <a href="/" class="brand">
+        <svg class="brand-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="64" height="64" fill="#F3F0E8" rx="4"/>
+          <line x1="8" y1="32" x2="56" y2="32" stroke="#15140F" stroke-width="3"/>
+          <line x1="32" y1="8" x2="32" y2="56" stroke="#15140F" stroke-width="3"/>
+          <circle cx="44" cy="20" r="6" fill="#C8401B"/>
+        </svg>
+        <span>Label Audit</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="/" class="active">Analyze</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/credits.html">Credits</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <h1>Music Mood and Editorial Mismatch Audit</h1>
+        <p>
+          Upload an audio track to extract acoustic mood dimensions, analyze lyrical sentiment,
+          and audit human-assigned labels against empirical machine learning models.
+        </p>
+      </section>
+
+      <div class="notice-box" role="note">
+        <strong>Notice:</strong> Only upload audio files that you have the legal right or license to analyze.
+        Audio files are processed in temporary memory and deleted immediately after inference.
+      </div>
+
+      <!-- Input Mode Switcher -->
+      <div class="mode-toggle" style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button type="button" id="tabUpload" class="btn-tab active" style="padding: 10px 20px; border: 1.5px solid #2B2A27; background: #2B2A27; color: #ffffff; cursor: pointer; border-radius: 6px; font-weight: 600; font-size: 0.95rem;">Upload Audio File</button>
+        <button type="button" id="tabSearch" class="btn-tab" style="padding: 10px 20px; border: 1.5px solid #D1CCBF; background: transparent; cursor: pointer; border-radius: 6px; font-weight: 500; font-size: 0.95rem; color: #57544C;">Search Song & Artist (No File Needed)</button>
+      </div>
+
+      <div id="searchNotice" style="display: none; padding: 12px 16px; margin-bottom: 20px; background: #F8F7F3; border: 1px solid #D1CCBF; border-left: 4px solid #3867D6; border-radius: 4px; font-size: 0.9rem;">
+        <strong>Online Song Search:</strong> Enter the Song Title and Artist below. The system will automatically fetch the official 30-second studio audio and lyrics online to run the ML audit without requiring you to upload a file!
+      </div>
+
+      <form id="auditForm" novalidate>
+        <!-- Dropzone -->
+        <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Audio file upload dropzone">
+          <input type="file" id="audioFile" name="file" accept="audio/*,.mp3,.wav,.ogg,.flac,.m4a" style="display: none;">
+          <p><strong>Click to select audio</strong> or drag and drop a file here</p>
+          <p class="dropzone-hint">Supported formats: MP3, WAV, OGG, FLAC, M4A (Maximum size: 50 MB, analyzed duration capped at 180 seconds)</p>
+          <div class="file-chosen-info" id="fileInfo"></div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="labelInput">
+              Assigned Mood Label <span class="label-hint">(e.g. Melody, Calm, Happy, Melancholic, Sad, Angry)</span>
+            </label>
+            <input type="text" id="labelInput" name="label" placeholder="e.g. Melody, Calm, Happy, Sad, Romantic...">
+          </div>
+
+          <div class="form-group">
+            <label for="titleInput">
+              Song Title <span class="label-hint">(Optional: used for automatic lyrics lookup)</span>
+            </label>
+            <input type="text" id="titleInput" name="title" placeholder="Enter track title">
+          </div>
+
+          <div class="form-group">
+            <label for="artistInput">
+              Artist Name <span class="label-hint">(Optional: used for automatic lyrics lookup)</span>
+            </label>
+            <input type="text" id="artistInput" name="artist" placeholder="Enter performing artist">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="lyricsInput">
+              Song Lyrics <span class="label-hint">(Optional: provide custom lyrics if not available via lookup)</span>
+            </label>
+            <textarea id="lyricsInput" name="lyrics" rows="3" placeholder="Paste English song lyrics text here..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">Run Label Audit</button>
+      </form>
+
+      <!-- Dynamic Status Banner (aria-live) -->
+      <div id="statusBanner" class="status-banner" role="status" aria-live="polite"></div>
+
+      <!-- Results Container -->
+      <section class="results-container" id="resultsSection" aria-label="Analysis Results">
+        <h2>Analysis Results</h2>
+
+        <div id="trackInfoCard" style="display: none; align-items: center; gap: 16px; margin-bottom: 20px; padding: 12px 16px; background: #fff; border: 1px solid #D1CCBF; border-radius: 6px;">
+          <img id="trackArtwork" src="" alt="Album Artwork" style="width: 64px; height: 64px; border-radius: 4px; object-fit: cover; display: none;">
+          <div>
+            <h3 id="trackTitleDisplay" style="margin: 0 0 4px 0; font-size: 1.15rem; color: #2B2A27;"></h3>
+            <p id="trackArtistDisplay" style="margin: 0; font-size: 0.9rem; color: #57544C;"></p>
+          </div>
+        </div>
+
+        <div class="results-grid">
+          <!-- 1. Circumplex Plane -->
+          <div class="card">
+            <h3>Affect Circumplex Plane</h3>
+            <p class="label-hint" style="margin-bottom: 12px;">
+              Valence (horizontal) vs Arousal (vertical) mapped on [-1.0, +1.0].
+            </p>
+            <div class="plane-wrapper">
+              <svg id="circumplexSvg" class="circumplex-svg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                <!-- Axes -->
+                <line x1="20" y1="160" x2="300" y2="160" stroke="#D1CCBF" stroke-width="1.5"/>
+                <line x1="160" y1="20" x2="160" y2="300" stroke="#D1CCBF" stroke-width="1.5"/>
+                <!-- Quadrant labels -->
+                <text x="290" y="35" text-anchor="end" font-size="11" fill="#57544C" font-family="var(--font-sans)">Happy (Q1)</text>
+                <text x="30" y="35" text-anchor="start" font-size="11" fill="#57544C" font-family="var(--font-sans)">Angry (Q2)</text>
+                <text x="30" y="295" text-anchor="start" font-size="11" fill="#57544C" font-family="var(--font-sans)">Sad (Q3)</text>
+                <text x="290" y="295" text-anchor="end" font-size="11" fill="#57544C" font-family="var(--font-sans)">Calm (Q4)</text>
+                <!-- Dynamic markers drawn by app.js -->
+                <g id="svgMarkers"></g>
+              </svg>
+            </div>
+            <div id="distanceReadout" style="margin-top: 14px; font-size: 0.85rem;" class="label-hint"></div>
+          </div>
+
+          <!-- 2. Acoustic Predictions & Mel Spectrogram -->
+          <div class="card">
+            <h3>Acoustic Model Analysis</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 8px;">
+              Predicted Coordinates: Valence = <span id="resValence" class="mono-num">-</span>,
+              Arousal = <span id="resArousal" class="mono-num">-</span>
+            </p>
+            <p style="font-size: 0.9rem; margin-bottom: 16px;">
+              Analyzed Duration: <span id="resDuration" class="mono-num">-</span>s |
+              Top Tags: <span id="resTopTags" class="mono-num">-</span>
+            </p>
+
+            <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Calibrated Quadrant Probabilities:</h4>
+            <div id="probBars"></div>
+
+            <div class="mel-canvas-wrapper">
+              <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Log-Mel Spectrogram (128 bins):</h4>
+              <canvas id="melCanvas" width="400" height="128"></canvas>
+              <div class="axis-labels">
+                <span>0s</span>
+                <span>Time (Frequency: 20 Hz to 11.025 kHz)</span>
+                <span id="canvasDurationEnd">30s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Mismatch Evaluation -->
+          <div class="card">
+            <h3>Mismatch Evaluation</h3>
+            <div id="labelComparisonBox" style="margin-bottom: 16px; padding: 12px; background: #F8F7F3; border: 1px solid #D1CCBF; border-radius: 6px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.9rem; color: #57544C;">Actual (Provided) Label:</span>
+                <strong id="actualLabelDisplay" style="font-size: 0.95rem; text-transform: capitalize; color: #2B2A27;">-</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.9rem; color: #57544C;">Model Predicted Label:</span>
+                <strong id="predictedLabelDisplay" style="font-size: 0.95rem; text-transform: capitalize; color: #2B2A27;">-</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="font-size: 0.9rem; color: #57544C;">Audit Status:</span>
+                <span id="auditStatusTag" style="font-size: 0.85rem; font-weight: 600;">-</span>
+              </div>
+            </div>
+            <div id="mismatchBadgeWrapper"></div>
+            <p id="mismatchScoreLine" style="font-size: 0.95rem; margin-bottom: 8px;"></p>
+            <p id="mismatchReason" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;"></p>
+            <p id="mismatchDisclaimer" style="font-size: 0.8rem; color: var(--text-muted); font-style: italic;"></p>
+          </div>
+
+          <!-- 4. Lyrics Evaluation -->
+          <div class="card">
+            <h3>Lyrical Sentiment Analysis</h3>
+            <p id="lyricsStatusLine" style="font-size: 0.95rem; margin-bottom: 8px;"></p>
+            <p id="lyricsCoordsLine" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;"></p>
+            <p id="lyricsNote" style="font-size: 0.85rem; color: var(--text-muted);"></p>
+          </div>
+        </div>
+
+        <!-- 5. Verification Agent Section (rendered if agent triggered) -->
+        <div class="card" id="agentCard" style="display: none; margin-bottom: 32px;">
+          <h3>Verification Agent Audit Trace</h3>
+          <div id="agentVerdictBox" style="margin-bottom: 16px;"></div>
+          <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Autonomous Tool-Calling Execution Trace:</h4>
+          <ol class="trace-list" id="agentTraceList"></ol>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-wrapper">
+      <div>
+        <span>Label Audit System. Built for academic music information retrieval and editorial verification.</span>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/credits.html">Credits and Licenses</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
