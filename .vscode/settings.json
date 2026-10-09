@@ -1,0 +1,7 @@
+{
+  "terminal.integrated.env.windows": {
+    "PYTHONUNBUFFERED": "1",
+    "KMP_DUPLICATE_LIB_OK": "TRUE",
+    "PYTHONIOENCODING": "utf-8"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Label Audit Web Server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_server.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONUNBUFFERED": "1",
+        "KMP_DUPLICATE_LIB_OK": "TRUE",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  ]
+}
