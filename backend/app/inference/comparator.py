@@ -62,20 +62,15 @@ class MismatchComparator:
         # 3. Combined Score [0, 1]
         score = float(round(0.5 * d_norm + 0.5 * d_prob, 4))
 
-        # 4. Cross-Quadrant Contradiction Check:
-        # If the model's primary predicted quadrant directly opposes or differs from the human label,
-        # ensure the score properly flags a mismatch so the Verification Agent can investigate.
-        OPPOSITE_QUADRANTS = {
-            "happy": "sad",
-            "sad": "happy",
-            "angry": "calm",
-            "calm": "angry"
-        }
-        is_polar_opposite = (OPPOSITE_QUADRANTS.get(audio_quad) == label_quad)
-        if is_polar_opposite and score < self.threshold:
+        # 4. Quadrant Contradiction & Flagging:
+        # If the model's primary predicted quadrant differs from the claimed label quadrant,
+        # it is a fundamental categorical mismatch!
+        is_quadrant_mismatch = (audio_quad != label_quad)
+        if is_quadrant_mismatch and score < self.threshold:
+            # Scale score proportionally to distance so it properly reflects the conflict
             score = float(round(max(score, self.threshold + 0.05), 4))
 
-        flagged = bool(score >= self.threshold or (audio_quad != label_quad and prob_target < 0.25))
+        flagged = bool(score >= self.threshold or is_quadrant_mismatch)
 
         # Distance between audio and lyrics if lyrics available
         dist_audio_lyrics = None
@@ -87,7 +82,7 @@ class MismatchComparator:
         if flagged:
             reason = f"Mismatch score {score:.4f} exceeds calibrated threshold {self.threshold:.4f} (Audio predicts '{audio_quad}', label claims '{label_quad}')."
         else:
-            reason = f"Mismatch score {score:.4f} is within acceptable threshold {self.threshold:.4f}."
+            reason = f"Mismatch score {score:.4f} is within acceptable threshold {self.threshold:.4f} (Audio and label both agree on '{label_quad}')."
 
         return {
             "score": score,
