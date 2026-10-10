@@ -1,3 +1,13 @@
+---
+title: Music Mismatch Prediction
+emoji: 🎧
+colorFrom: indigo
+colorTo: purple
+sdk: docker
+app_port: 8050
+pinned: false
+---
+
 # 🎧 Label Audit: Music Mood and Editorial Mismatch Engine
 
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com)
