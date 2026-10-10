@@ -87,19 +87,41 @@ def is_english_text(text):
 
 class LyricsPredictor:
     def __init__(self, model_dir="weights/lyrics_model", allow_multilingual=True):
-        if not os.path.exists(model_dir):
-            raise FileNotFoundError(f"Lyrics model directory not found: {model_dir}")
-
-        self.tokenizer = AutoTokenizer.from_pretrained(model_dir)
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_dir)
-        self.model.eval()  # CPU inference
+        self.is_available = False
+        self.model = None
+        self.tokenizer = None
         self.allow_multilingual = allow_multilingual
+
+        # Safely check if local weights exist
+        if os.path.exists(model_dir) and (
+            os.path.exists(os.path.join(model_dir, "model.safetensors"))
+            or os.path.exists(os.path.join(model_dir, "pytorch_model.bin"))
+        ):
+            try:
+                self.tokenizer = AutoTokenizer.from_pretrained(model_dir)
+                self.model = AutoModelForSequenceClassification.from_pretrained(model_dir)
+                self.model.eval()  # CPU inference
+                self.is_available = True
+            except Exception as e:
+                self.is_available = False
+        else:
+            self.is_available = False
 
     def predict_lyrics(self, lyrics_text):
         """
         Analyzes mood from song lyrics text.
         Supports English and Multilingual (Telugu/Indic) zero-shot inference.
         """
+        if not self.is_available:
+            return {
+                "status": "not_available",
+                "note": "Lyrics model inactive on lightweight cloud deployment.",
+                "valence": None,
+                "arousal": None,
+                "quadrant_probs": None,
+                "primary_quadrant": None
+            }
+
         if not lyrics_text or not lyrics_text.strip():
             return {
                 "status": "missing",
